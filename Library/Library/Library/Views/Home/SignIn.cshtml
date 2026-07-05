@@ -1,0 +1,130 @@
+@model SignIn
+
+@{
+    ViewData["Title"] = "Sign In";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white text-center py-4">
+                    <h3 class="mb-0">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Welcome Back
+                    </h3>
+                    <p class="mb-0 mt-2">Sign in to your account</p>
+                </div>
+                <div class="card-body p-4">
+                    <!-- Success/Error Messages -->
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="fas fa-check-circle"></i>
+                            @TempData["SuccessMessage"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+
+                    @if (ViewData.ModelState.ErrorCount > 0)
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <strong>Please fix the following errors:</strong>
+                            <ul class="mb-0 mt-2">
+                                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                                {
+                                    <li>@error.ErrorMessage</li>
+                                }
+                            </ul>
+                        </div>
+                    }
+
+                    <form asp-action="SignIn" asp-controller="Home" method="post" novalidate>
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label">
+                                <i class="fas fa-envelope text-muted"></i>
+                                Email Address
+                            </label>
+                            <input asp-for="Email" class="form-control" placeholder="Enter your email address" autocomplete="email" />
+                            <span asp-validation-for="Email" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Password" class="form-label">
+                                <i class="fas fa-lock text-muted"></i>
+                                Password
+                            </label>
+                            <div class="input-group">
+                                <input asp-for="Password" class="form-control" placeholder="Enter your password" autocomplete="current-password" />
+                                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                    <i class="fas fa-eye" id="toggleIcon"></i>
+                                </button>
+                            </div>
+                            <span asp-validation-for="Password" class="text-danger small"></span>
+                        </div>
+
+                        <div class="d-grid mb-3">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-sign-in-alt"></i>
+                                Sign In
+                            </button>
+                        </div>
+                    </form>
+
+                    <hr class="my-4">
+
+                    <div class="text-center">
+                        <p class="text-muted mb-0">
+                            Don't have an account?
+                            <a asp-action="Signup" asp-controller="Home" class="text-decoration-none">
+                                <strong>Sign up here</strong>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-3">
+                <a asp-action="Welcome" asp-controller="Home" class="text-muted text-decoration-none">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Toggle password visibility
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordField = document.getElementById('Password');
+            const toggleIcon = document.getElementById('toggleIcon');
+            
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordField.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        });
+
+        // Auto-hide alerts after 5 seconds
+        setTimeout(function() {
+            var alerts = document.querySelectorAll('.alert');
+            alerts.forEach(function(alert) {
+                var bsAlert = new bootstrap.Alert(alert);
+                bsAlert.close();
+            });
+        }, 5000);
+
+        // Focus on first input field
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('Email').focus();
+        });
+    </script>
+}

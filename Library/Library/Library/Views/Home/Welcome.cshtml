@@ -1,0 +1,116 @@
+@{
+    ViewData["Title"] = "Welcome";
+}
+
+<div class="welcome-hero">
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <div class="col-lg-8">
+                <h1 class="display-3 fw-bold mb-4">
+                    <i class="fas fa-book-open"></i>
+                    Welcome to Read & Rise Library
+                </h1>
+                <p class="lead mb-4">
+                    "A reader lives a thousand lives before he dies. The man who never reads lives only one."
+                </p>
+                <p class="fs-5 mb-5">
+                    Discover, explore, and manage your digital library collection with our modern library management system.
+                </p>
+                
+                @{
+                    var currentUser = Context.Session.GetString("CurrentUser");
+                    var isLoggedIn = !string.IsNullOrEmpty(currentUser);
+                }
+                
+                @if (!isLoggedIn)
+                {
+                    <div class="d-flex gap-3 justify-content-center flex-wrap">
+                        <a asp-action="Signup" asp-controller="Home" class="btn btn-light btn-lg px-4">
+                            <i class="fas fa-user-plus"></i>
+                            Get Started - Sign Up
+                        </a>
+                        <a asp-action="SignIn" asp-controller="Home" class="btn btn-outline-light btn-lg px-4">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Sign In
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <div class="d-flex gap-3 justify-content-center flex-wrap">
+                        <a asp-action="AllBooks" asp-controller="Home" class="btn btn-light btn-lg px-4">
+                            <i class="fas fa-book"></i>
+                            Browse Library
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="mb-3">
+                        <i class="fas fa-search fa-3x text-primary"></i>
+                    </div>
+                    <h5 class="card-title">Discover Books</h5>
+                    <p class="card-text text-muted">
+                        Explore our extensive collection of books across various genres and categories.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="mb-3">
+                        <i class="fas fa-bookmark fa-3x text-success"></i>
+                    </div>
+                    <h5 class="card-title">Organize Collection</h5>
+                    <p class="card-text text-muted">
+                        Keep track of your reading progress and organize your personal library efficiently.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="mb-3">
+                        <i class="fas fa-users fa-3x text-info"></i>
+                    </div>
+                    <h5 class="card-title">Community</h5>
+                    <p class="card-text text-muted">
+                        Join a community of book lovers and share your reading experiences.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (!isLoggedIn)
+{
+    <div class="bg-light py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="mb-4">Ready to Start Your Reading Journey?</h2>
+                    <p class="lead text-muted mb-4">
+                        Join thousands of readers who have already discovered the joy of digital library management.
+                    </p>
+                    <a asp-action="Signup" asp-controller="Home" class="btn btn-primary btn-lg">
+                        <i class="fas fa-rocket"></i>
+                        Start Reading Today
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
