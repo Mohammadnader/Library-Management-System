@@ -32,12 +32,3 @@ Regular readers enjoy a clean, distraction-free environment to explore and read:
 * **Frontend:** HTML5, CSS3, Bootstrap, JavaScript (Responsive layout for all devices)
 
 ---
-
-## 📸 Screenshots & Demo
-
-*(Optional: You can add links to your screenshots here later)*
-* `Dashboard View`
-* `Book Details & Download View`
-* `Sign-In / Sign-Up Page`
-
----
